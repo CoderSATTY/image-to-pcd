@@ -169,25 +169,20 @@ def main():
                         help='Input size for model inference')
     
     args = parser.parse_args()
-    
-    # Set device
+
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"Using device: {device}")
-    
-    # Import and load model
+
     from depth_anything_v2.dpt import DepthAnythingV2
     
     model_config = MODEL_CONFIGS[args.encoder]
     model = DepthAnythingV2(**{**model_config, 'max_depth': args.max_depth})
-    
-    # Load weights
+
     state_dict = torch.load(args.load_from, map_location='cpu')
     model.load_state_dict(state_dict)
     model = model.to(device).eval()
     
     print(f"Loaded model: {args.encoder} encoder, max_depth={args.max_depth}m")
-    
-    # Process images
     process_images(model, args, device)
 
 
