@@ -1,6 +1,6 @@
 import numpy as np
 
-npz_file = 'CalibrationMatrix_college_cpt.npz' 
+npz_file = 'MyCalibration.npz' 
 
 with np.load(npz_file) as data:
     for item in data.files:

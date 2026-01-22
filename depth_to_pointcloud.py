@@ -98,7 +98,7 @@ def process_images(model, args, device):
         return
     
     # Load calibration if available
-    calibration_path = args.calibration if args.calibration else "CalibrationMatrix.npz"
+    calibration_path = args.calibration if args.calibration else "MyCalibration.npz"
     fx, fy, cx, cy = load_calibration(calibration_path)
     
     for image_path in tqdm(image_paths, desc="Processing images"):
