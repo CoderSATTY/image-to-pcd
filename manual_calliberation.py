@@ -1,7 +1,10 @@
 import numpy as np
 
-fx, fy = 1000.0, 1000.0  
-cx, cy = 960.0, 540.0    
+#fx, fy = 1000.0, 1000.0  
+#cx, cy = 960.0, 540.0    #for 1920x1080 image
+fx = 1409
+fy = 1409
+cx, cy = 640, 360        #for 1280, 720 image
 
 camera_matrix = np.array([
     [fx, 0, cx],
