@@ -98,7 +98,7 @@ def process_images(model, args, device):
         return
     
     # Load calibration if available
-    calibration_path = args.calibration if args.calibration else "MyCalibration.npz"
+    calibration_path = args.calibration if args.calibration else "CalibrationMatrix_college_cpt.npz"
     fx, fy, cx, cy = load_calibration(calibration_path)
     
     for image_path in tqdm(image_paths, desc="Processing images"):
@@ -139,12 +139,12 @@ def process_images(model, args, device):
             # Downsample for efficiency
             pcd = pcd.voxel_down_sample(voxel_size=0.01)
             
-            # Save point cloud
+            # Save point cloud (ASCII format for better compatibility)
             output_path = os.path.join(
                 args.outdir,
                 os.path.splitext(os.path.basename(image_path))[0] + ".ply"
             )
-            o3d.io.write_point_cloud(output_path, pcd)
+            o3d.io.write_point_cloud(output_path, pcd, write_ascii=True)
             print(f"Saved: {output_path} ({len(pcd.points)} points)")
             
         except Exception as e:
