@@ -1,5 +1,25 @@
+# IDE
 .idea/
+.vscode/
+
+# Model weights
 *.pt
 *.pth
-*.png
+checkpoints/
+
+# Output files
 *.ply
+my_test/output/
+
+# Depth Anything V2 model code (cloned during setup)
+depth_anything_v2/
+temp_da2/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Images (keep sample images if needed)
+# *.png
+# *.jpg

@@ -1,50 +1,73 @@
-## Metric Point Cloud Creation from Single Images using Depth Anything Model
+# 🎯 Depth Anything V2 - Image to Point Cloud
 
-This project leverages the Depth Anything model to create metric point clouds from single images. This repository includes all necessary scripts and files to perform depth estimation and generate accurate 3D point clouds with real-world measurements.
+Generate metric point clouds from single images using **Depth Anything V2**.
 
-### Requirements
+---
 
-------------
+## 🚀 Quick Setup (One Command)
 
-To install the required packages, run:
-`pip install -r requirements.txt`
+```bash
+git clone https://github.com/CoderSATTY/image-to-pcd.git
+cd image-to-pcd
+chmod +x setup.sh && ./setup.sh
+```
 
-### Installation
+This downloads the model weights (~1.3GB) and sets up all dependencies.
 
-------------
+---
 
-1. Clone this repository:
-`git clone https://github.com/bohdanvodianyk/image-to-pcd.git`
-`cd your-repo-name`
-2. Install the necessary Python packages:
-`pip install -r requirements.txt`
-3. Download the model checkpoints from [Google Drive](https://drive.google.com/drive/folders/1LJRnpOhNuzZXlVE0oGzzUb7ZiXeF6f-8?usp=sharing "Google Drive") and place them in the appropriate directory within the project.
+## 📦 Usage
 
-### Usage
+```bash
+python depth_to_pointcloud.py \
+  --encoder vitl \
+  --load-from checkpoints/depth_anything_v2_metric_hypersim_vitl.pth \
+  --max-depth 20 \
+  --img-path ./input \
+  --outdir ./output
+```
 
-------------
+**Arguments:**
+| Argument | Description | Default |
+|----------|-------------|---------|
+| `--encoder` | Model size: `vits`, `vitb`, `vitl` | `vitl` |
+| `--load-from` | Path to model checkpoint | Required |
+| `--max-depth` | Max depth in meters (20=indoor, 80=outdoor) | `20` |
+| `--img-path` | Input image(s) path | Required |
+| `--outdir` | Output directory for .ply files | Required |
+| `--calibration` | Camera calibration file (.npz) | Optional |
 
-#### Calibration
-Before generating point clouds, calibrate your camera using the `calibration-camera.py` script. Ensure you have a chessboard pattern printed for the calibration process.
+---
 
-#### Depth Estimation to Point Cloud
-To convert depth maps into metric point clouds, use the `depth_to_pointcloud.py` script. Ensure your input image is correctly formatted and accessible.
+## 📁 Project Structure
 
-#### HEIC to PNG Conversion
-If your input images are in HEIC format, convert them to PNG using the `heic2png.py` script.
+```
+image-to-pcd/
+├── setup.sh                    # Run this first!
+├── depth_to_pointcloud.py      # Main script
+├── checkpoints/                # Model weights (auto-downloaded)
+│   └── depth_anything_v2_metric_hypersim_vitl.pth
+├── depth_anything_v2/          # Model code (auto-cloned)
+├── input/                      # Place your images here
+└── output/                     # Point clouds saved here
+```
 
-### Model Checkpoints
+---
 
-------------
+## 🔗 Model Download Links (Manual)
 
-Model checkpoints necessary for depth estimation can be downloaded from the following Google Drive link:
+If you prefer manual download:
 
-[Google Drive - Model Checkpoints](https://drive.google.com/drive/folders/1LJRnpOhNuzZXlVE0oGzzUb7ZiXeF6f-8?usp=sharing "Google Drive - Model Checkpoints")
+| Model | Size | Download |
+|-------|------|----------|
+| Large (recommended) | 335M | [depth_anything_v2_metric_hypersim_vitl.pth](https://huggingface.co/depth-anything/Depth-Anything-V2-Metric-Hypersim-Large/resolve/main/depth_anything_v2_metric_hypersim_vitl.pth?download=true) |
+| Base | 97.5M | [depth_anything_v2_metric_hypersim_vitb.pth](https://huggingface.co/depth-anything/Depth-Anything-V2-Metric-Hypersim-Base/resolve/main/depth_anything_v2_metric_hypersim_vitb.pth?download=true) |
+| Small | 24.8M | [depth_anything_v2_metric_hypersim_vits.pth](https://huggingface.co/depth-anything/Depth-Anything-V2-Metric-Hypersim-Small/resolve/main/depth_anything_v2_metric_hypersim_vits.pth?download=true) |
 
-Download and place these checkpoints in the appropriate directory within your project to ensure the model functions correctly.
+Place in `checkpoints/` directory.
 
-### Acknowledgements
+---
 
-------------
+## 🙏 Acknowledgements
 
-Special thanks to the developers of the **Depth Anything** model and all contributors who made this project possible. Your work in computer vision and deep learning is greatly appreciated.
+- [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) - NeurIPS 2024
